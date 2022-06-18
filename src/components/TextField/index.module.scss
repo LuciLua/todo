@@ -1,0 +1,29 @@
+.form {
+  width: 100%;
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    width: 100%;
+
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+
+
+    outline: none;
+
+    border: 1px solid rgb(235, 235, 235);
+
+    margin-bottom: 15px;
+  }
+
+  span{
+      position: absolute;
+      right: 10px;
+      bottom: 23px;
+  }
+}
