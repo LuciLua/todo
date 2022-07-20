@@ -1,4 +1,4 @@
-import styles from "./index.module.scss"
+import styles from "./List.module.scss"
 import { useState, useEffect } from "react"
 import { AiOutlineLine, AiOutlineCheck, AiOutlineClose } from "react-icons/ai"
 
@@ -34,16 +34,6 @@ function List({ data, handleRemoveItem, handleUpdateItem }) {
     useEffect(() => {
         setTodos(data)
     }, [data])
-
-    // if (!(todos.length > 0)) {
-    //     return (
-    //         <ul>
-    //             <li>
-    //                 Please insert an item
-    //             </li>
-    //         </ul>
-    //     )
-    // }
 
     return (
         <ul className={styles.list}>

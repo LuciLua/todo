@@ -1,19 +1,11 @@
-import List from "../components/List"
-import { useState } from "react"
+import List from "../components/List/List"
+import { isValidElement, useState } from "react"
 import { useEffect } from "react"
 
 import styles from "../style/home.module.scss"
 import TextField from "../components/TextField"
 
 function Home() {
-
-    // const dummyData = [
-    //     { todo: "Hard working in some project", status: "pending" },
-    //     { todo: "Make something for me eat", status: "pending" },
-    //     { todo: "Drink two glasses of water", status: "pending" },
-    //     { todo: "Practice exercices", status: "pending" },
-    //     { todo: "Watch series", status: "pending" }
-    // ]
 
     const dummyData = []
 
@@ -25,66 +17,76 @@ function Home() {
     }, [])
 
     function formarObj() {
+        let local_todo = JSON.parse(localStorage.getItem(`local_todo`))
+        console.log(local_todo)
 
-        if (localStorage.getItem("todo")) {
-            // consulta no localStorage
-            const local_todo = localStorage.getItem(`todo`)
-            const local_status = localStorage.getItem(`status`)
-            // junta
-            const join = { todo: local_todo, status: local_status }
-            // puxa pra lista
-            dummyData.push(join)
+        if (local_todo) {
+            local_todo.map((todo_item) => {
+                dummyData.push(todo_item)
+            })
         }
+    }
+
+    function clearTodoList() {
+        let local_todo = JSON.parse(localStorage.getItem(`local_todo`))
+        localStorage.removeItem(`local_todo`)
+
+        setTodos(prevItems => local_todo)
     }
 
     const handleRemoveItem = (index) => {
         let currentItems = [...todos]
-        currentItems.splice(index, 1)
-        console.log({ index, currentItems })
-
-        localStorage.removeItem("todo")
-        localStorage.removeItem("status")
-
+        const item = currentItems[index]
         setTodos((prevItems) => currentItems)
 
+        // corrigir
+        console.log("removido? ", JSON.parse(localStorage.getItem("local_todo"))[index])
+        console.log(item)
 
     }
 
     const handleUpdateItem = (index) => {
         let currentItems = [...todos]
         const item = currentItems[index]
+        setTodos((prevItems) => currentItems)
 
+        // Ok visual
         item.status == "pending" ?
             item.status = "completed" :
             item.status = "pending"
 
-        // console.log({ index, currentItems })
+        const objtest = JSON.stringify(
+            [
+                // {
+                //     todo: "KKK",
+                //     status: "completed"
+                // },
+                // {
+                //     todo: "KKKasd",
+                //     status: "pending"
+                // }
+                ...todos
+            ]
+        )
 
-        localStorage.getItem("status") == "pending" ?
-            localStorage.setItem("status", "completed") :
-            localStorage.setItem("status", "pending")
+        // console.log(JSON.parse(localStorage.getItem("local_todo"))[index])
+        localStorage.setItem("local_todo", objtest)[index]
 
-        setTodos((prevItems) => currentItems)
-
-        console.log(localStorage.getItem("todo"))
-        console.log(localStorage.getItem("status"))
     }
 
     const addNewItem = (obj) => {
         let newItems = [...todos]
         newItems.push(obj)
-        console.log([obj, newItems])
+        const final = JSON.stringify([...newItems, obj])
+        localStorage.setItem(`local_todo`, final)
 
-        localStorage.setItem(`todo`, obj.todo)
-        localStorage.setItem(`status`, obj.status)
+        let local_todo = JSON.parse(localStorage.getItem(`local_todo`))
+        setTodos(prevItems => local_todo)
 
-        setTodos(prevItems => newItems)
+        console.log(todos)
+        // console.log(local_todo)
 
     }
-
-    // if (!todos.length > 0) {
-    //     return <p>Requesting data...</p>
-    // }
 
     return (
 
@@ -92,10 +94,10 @@ function Home() {
         <div className={styles.home}>
             <div className={styles.todoWrapper}>
                 <h1>To do List</h1>
-                <p>(só salva 1 por enquanto)</p>
                 <TextField
                     addNewItem={addNewItem}
                 />
+                <button style={{ height: 30, width: 100, border: "none", borderRadius: 5, marginLeft: "auto", marginBottom: 10 }} onClick={clearTodoList}>Clear</button>
                 <List
                     data={todos}
                     handleRemoveItem={handleRemoveItem}
