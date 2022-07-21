@@ -5,6 +5,10 @@ import { useEffect } from "react"
 import styles from "../style/home.module.scss"
 import TextField from "../components/TextField"
 
+interface propsHandle{
+    index: any
+}
+
 function Home() {
 
     const dummyData = []
@@ -55,37 +59,21 @@ function Home() {
             item.status = "completed" :
             item.status = "pending"
 
-        const objtest = JSON.stringify(
-            [
-                // {
-                //     todo: "KKK",
-                //     status: "completed"
-                // },
-                // {
-                //     todo: "KKKasd",
-                //     status: "pending"
-                // }
-                ...todos
-            ]
-        )
-
-        // console.log(JSON.parse(localStorage.getItem("local_todo"))[index])
+        const objtest = JSON.stringify([...todos])
         localStorage.setItem("local_todo", objtest)[index]
 
     }
 
     const addNewItem = (obj) => {
         let newItems = [...todos]
-        newItems.push(obj)
+        // newItems.push(obj)
         const final = JSON.stringify([...newItems, obj])
         localStorage.setItem(`local_todo`, final)
 
-        let local_todo = JSON.parse(localStorage.getItem(`local_todo`))
-        setTodos(prevItems => local_todo)
+        let local_todo = JSON.parse(localStorage.getItem("local_todo"))
+        setTodos(local_todo)
 
         console.log(todos)
-        // console.log(local_todo)
-
     }
 
     return (
