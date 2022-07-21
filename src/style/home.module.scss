@@ -38,16 +38,17 @@
       width: 100%;
       flex-direction: column;
 
+      animation: 0.5s fade linear;
 
       border: 1px solid rgb(223, 223, 223);
       padding: 20px;
       background-color: rgb(243, 243, 243);
-    
+
       width: 100%;
       height: 100%;
-    
+
       border-radius: 5px;
-    
+
       position: relative;
 
       .labels {
@@ -55,18 +56,31 @@
         width: 100%;
 
         border-bottom: 1px solid #b1b1b1;
-        
-        p:nth-child(1){
+
+        p:nth-child(1) {
           margin-right: auto;
           font-size: 13px;
           padding: 10px 5px;
         }
-        p:nth-child(2){
+        p:nth-child(2) {
           margin-left: auto;
           font-size: 13px;
           padding: 10px 5px;
         }
       }
     }
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0%;
+  }
+
+  25% {
+    opacity: 5%;
+  }
+  100% {
+    opacity: 100%;
   }
 }

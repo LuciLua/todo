@@ -32,21 +32,24 @@ function Home() {
     }
 
     function clearTodoList() {
-        let local_todo = JSON.parse(localStorage.getItem(`local_todo`))
-        localStorage.removeItem(`local_todo`)
-
-        setTodos(prevItems => local_todo)
+        localStorage.removeItem("local_todo")
+        setTodos([])
     }
 
     const handleRemoveItem = (index) => {
         let currentItems = [...todos]
-        const item = currentItems[index]
         setTodos((prevItems) => currentItems)
 
-        // corrigir
-        console.log("removido? ", JSON.parse(localStorage.getItem("local_todo"))[index])
-        console.log(item)
+        // filtrando apenas os que nao exclui
+        var filtrado = [...todos].filter(tds => {
+           return tds.todo !== todos[index].todo
+        })
 
+        // adicionando a nova lista filtrada para o useState
+        setTodos(() => filtrado)
+
+        // adicionando a nova lista para o local Storage
+        localStorage.setItem("local_todo", JSON.stringify(filtrado))
     }
 
     const handleUpdateItem = (index) => {
@@ -66,14 +69,11 @@ function Home() {
 
     const addNewItem = (obj) => {
         let newItems = [...todos]
-        // newItems.push(obj)
         const final = JSON.stringify([...newItems, obj])
         localStorage.setItem(`local_todo`, final)
 
         let local_todo = JSON.parse(localStorage.getItem("local_todo"))
         setTodos(local_todo)
-
-        console.log(todos)
     }
 
     return (
@@ -85,11 +85,11 @@ function Home() {
                 <TextField
                     addNewItem={addNewItem}
                 />
-                <button style={{ height: 30, width: 100, border: "none", borderRadius: 5, marginLeft: "auto", marginBottom: 10 }} onClick={clearTodoList}>Clear</button>
+                <button style={{ height: 30, width: 100, border: "none", borderRadius: 5, marginLeft: "auto", marginBottom: 10, cursor: "pointer" }} onClick={clearTodoList}>Clear</button>
                 <div className={styles.list}>
                     <div className={styles.labels}>
-                    <p>Task</p>
-                    <p>Actions</p>
+                        <p>Task</p>
+                        <p>Actions</p>
                     </div>
                     <List
                         data={todos}
