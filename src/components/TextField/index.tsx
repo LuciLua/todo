@@ -15,19 +15,20 @@ function TextField({ addNewItem }) {
         addNewItem({ todo: textVal, status: "pending" })
         setTextVal("")
         console.log("Added new item!")
-
     }
 
     return (
         <form className={styles.form} onSubmit={onSubmit}>
             <input
                 type="text"
-                onChange={(e) => handleOnChange(e)}
+                onInput={(e) => handleOnChange(e)}
                 value={textVal}
                 placeholder="New Item"
             />
             <span>
-                <AiOutlineSend />
+                <button>
+                    <AiOutlineSend onClick={() => handleOnChange(textVal)} />
+                </button>
             </span>
         </form>
     )

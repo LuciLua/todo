@@ -6,18 +6,14 @@ import { AiOutlineLine, AiOutlineCheck, AiOutlineClose } from "react-icons/ai"
 const ListItem = ({ todos, index, handleRemoveItem, handleUpdateItem }) => {
     return (
         <li className={styles.listItem} value={todos.status}>
-
             <button className={styles.check}
-                onClick={() => handleUpdateItem(index)}
-            >
+                onClick={() => handleUpdateItem(index)}>
                 {
                     todos.status == "pending"
                         ? <AiOutlineLine /> : <AiOutlineCheck />
                 }
             </button>
-
             <span>{todos.todo}</span>
-
             <button className={styles.remove} onClick={() => handleRemoveItem(index)}>
                 <AiOutlineClose color="#aa0000" />
             </button>
@@ -25,7 +21,6 @@ const ListItem = ({ todos, index, handleRemoveItem, handleUpdateItem }) => {
         </li>
     )
 }
-
 
 function List({ data, handleRemoveItem, handleUpdateItem }) {
 

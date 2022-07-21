@@ -5,7 +5,7 @@ import { useEffect } from "react"
 import styles from "../style/home.module.scss"
 import TextField from "../components/TextField"
 
-interface propsHandle{
+interface propsHandle {
     index: any
 }
 
@@ -86,11 +86,17 @@ function Home() {
                     addNewItem={addNewItem}
                 />
                 <button style={{ height: 30, width: 100, border: "none", borderRadius: 5, marginLeft: "auto", marginBottom: 10 }} onClick={clearTodoList}>Clear</button>
-                <List
-                    data={todos}
-                    handleRemoveItem={handleRemoveItem}
-                    handleUpdateItem={handleUpdateItem}
-                />
+                <div className={styles.list}>
+                    <div className={styles.labels}>
+                    <p>Task</p>
+                    <p>Actions</p>
+                    </div>
+                    <List
+                        data={todos}
+                        handleRemoveItem={handleRemoveItem}
+                        handleUpdateItem={handleUpdateItem}
+                    />
+                </div>
             </div>
         </div>
         // )
