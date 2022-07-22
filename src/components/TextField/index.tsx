@@ -7,14 +7,12 @@ function TextField({ addNewItem }) {
     const [textVal, setTextVal] = useState("")
 
     const handleOnChange = (e) => {
-        setTextVal(prevText => e.target.value)
+        setTextVal(() => e.target.value)
     }
 
     const onSubmit = (e) => {
         e.preventDefault()
         addNewItem({ todo: textVal, status: "pending" })
-        setTextVal("")
-        console.log("Added new item!")
     }
 
     return (
@@ -26,8 +24,8 @@ function TextField({ addNewItem }) {
                 placeholder="New Item"
             />
             <span>
-                <button>
-                    <AiOutlineSend onClick={() => handleOnChange(textVal)} />
+                <button type="submit">
+                    <AiOutlineSend />
                 </button>
             </span>
         </form>

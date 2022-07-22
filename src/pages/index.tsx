@@ -42,7 +42,7 @@ function Home() {
 
         // filtrando apenas os que nao exclui
         var filtrado = [...todos].filter(tds => {
-           return tds.todo !== todos[index].todo
+            return tds.todo !== todos[index].todo
         })
 
         // adicionando a nova lista filtrada para o useState
@@ -53,17 +53,19 @@ function Home() {
     }
 
     const handleUpdateItem = (index) => {
-        let currentItems = [...todos]
-        const item = currentItems[index]
-        setTodos((prevItems) => currentItems)
+        let listItems = [...todos]
+        setTodos(() => listItems)
 
-        // Ok visual
+        // Style
+        const item = listItems[index]
         item.status == "pending" ?
             item.status = "completed" :
             item.status = "pending"
 
-        const objtest = JSON.stringify([...todos])
-        localStorage.setItem("local_todo", objtest)[index]
+        // Update status on localStorage 
+        const todosListString = JSON.stringify([...todos])
+        // Bug here
+        localStorage.setItem("local_todo", todosListString)[index]
 
     }
 
