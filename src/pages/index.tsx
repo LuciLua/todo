@@ -1,5 +1,5 @@
 import List from "../components/List/List"
-import React, { useContext, useState } from "react"
+import React, { useState } from "react"
 import { useEffect } from "react"
 
 import styles from "../style/home.module.scss"
@@ -15,19 +15,24 @@ interface propsHandle {
 
 function Home() {
 
-    const { confirm } = useConfirm()
+    const { confirm, setConfirm } = useConfirm()
     const { total } = useTotal()
 
     const listTodo = []
 
-    const [todos, setTodos] = useState([])
+    const [todos, setTodos] = useState<any>([])
     const [clear, setClear] = useState(false)
+
+    const [updateTotal, setUpdateTotal] = useState(total)
 
     useEffect(() => {
         formarObj()
         setTodos(listTodo)
+
         setClear(clear)
-    }, [clear])
+        setUpdateTotal(total)
+    }, [clear, total])
+
 
     function formarObj() {
         let local_todo = JSON.parse(localStorage.getItem(`local_todo`))
@@ -38,15 +43,22 @@ function Home() {
         }
     }
 
-    function clearTodoList() {
+    async function clearTodoList() {
 
         const clearNow = document.getElementById('clear')
 
         clear == true ? setClear(false) : setClear(true)
         clearNow.addEventListener("click", () => setClear(false))
 
-        setTodos([])
-        localStorage.removeItem("local_todo")
+        console.log(confirm)
+
+        if (confirm == true) {
+            setTodos([])
+            localStorage.removeItem("local_todo")
+            setUpdateTotal(0)
+        } else {
+            return
+        }
     }
 
     const handleRemoveItem = (index) => {
@@ -63,9 +75,11 @@ function Home() {
 
         // adicionando a nova lista para o local Storage
         localStorage.setItem("local_todo", JSON.stringify(filtrado))
+
+        setUpdateTotal(updateTotal - 1)
     }
 
-    const handleUpdateItem = (index) => {
+    const handleUpdateItem = (index: any) => {
         let listItems = [...todos]
         setTodos(() => listItems)
 
@@ -89,13 +103,20 @@ function Home() {
 
         let local_todo = JSON.parse(localStorage.getItem("local_todo"))
         setTodos(local_todo)
+
+        // Atualizar total sempre que adicionar novo item
+        setUpdateTotal(updateTotal + 1)
+    }
+
+    const choice = () => {
+        return confirm
     }
 
     return (
         <div className={styles.home}>
             <DialogBox op={clear} />
             <div className={styles.todoWrapper}>
-                <h1>To do List ({total}) | {confirm}</h1>
+                <h1>To do List ({updateTotal}) | {choice()}</h1>
                 <TextField
                     addNewItem={addNewItem}
                 />

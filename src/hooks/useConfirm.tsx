@@ -4,14 +4,16 @@ import { DialogBoxContext } from "../contexts/DialogBoxContext";
 // Criacao de hook para facilitar utilizacao do contexto
 const useConfirm = () => {
 
+    
     const context = useContext<any>(DialogBoxContext)
-    const { confirm } = context
+    const { confirm, setConfirm } = context
 
+    
     if (!context) {
-    throw new Error("useNome must be used withim an nomeProvider");
+        throw new Error("useNome must be used withim an nomeProvider");
     }
 
-    return { confirm }
+    return { confirm, setConfirm }
 }
 
 export default useConfirm
