@@ -1,6 +1,7 @@
 import styles from "./List.module.scss"
 import { useState, useEffect } from "react"
-import { AiOutlineLine, AiOutlineCheck, AiOutlineClose } from "react-icons/ai"
+import { AiOutlineDelete } from "react-icons/ai"
+import { RiCheckboxBlankCircleLine, RiCheckboxCircleFill } from "react-icons/ri"
 
 
 const ListItem = ({ todos, index, handleRemoveItem, handleUpdateItem }) => {
@@ -10,12 +11,12 @@ const ListItem = ({ todos, index, handleRemoveItem, handleUpdateItem }) => {
                 onClick={() => handleUpdateItem(index)}>
                 {
                     todos.status == "pending"
-                        ? <AiOutlineLine /> : <AiOutlineCheck />
+                        ? <RiCheckboxBlankCircleLine size={19} color="#1d1d1d82" /> : <RiCheckboxCircleFill size={19} color="#09571b" />
                 }
             </button>
             <span>{todos.todo}</span>
             <button className={styles.remove} onClick={() => handleRemoveItem(index)}>
-                <AiOutlineClose color="#aa0000" />
+                <AiOutlineDelete color="#1d1d1d82" />
             </button>
 
         </li>

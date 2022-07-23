@@ -91,11 +91,8 @@ function Home() {
 
         // Update status on localStorage 
         const todosListString = JSON.stringify([...todos])
-        // Bug here
-        const local_todo_obj = () => localStorage.setItem("local_todo", todosListString)[index]
-
-        local_todo_obj
-        
+        const set_item_to_local = () => localStorage.setItem("local_todo", todosListString)[index]
+        set_item_to_local
 
     }
 
@@ -133,7 +130,7 @@ function Home() {
         <div className={styles.home}>
             <DialogBox op={clear} />
             <div className={styles.todoWrapper}>
-                <h1>To do List ({updateTotal}) | {choice()}</h1>
+                <h1>To do List ({updateTotal})</h1>
                 <TextField
                     addNewItem={addNewItem}
                 />
@@ -141,10 +138,10 @@ function Home() {
                     Clear
                 </button>
                 <div className={styles.list}>
-                    <div className={styles.labels}>
+                    {/* <div className={styles.labels}>
                         <p>Task</p>
                         <p>Actions</p>
-                    </div>
+                    </div> */}
                     <List
                         data={todos}
                         handleRemoveItem={handleRemoveItem}
