@@ -13,6 +13,7 @@ function TextField({ addNewItem }) {
     const onSubmit = (e) => {
         e.preventDefault()
         addNewItem({ todo: textVal, status: "pending" })
+        setTextVal("") // seta valor para nenhum
     }
 
     return (

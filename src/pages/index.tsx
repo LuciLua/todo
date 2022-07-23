@@ -1,9 +1,13 @@
 import List from "../components/List/List"
-import { isValidElement, useState } from "react"
+import React, { useContext, useState } from "react"
 import { useEffect } from "react"
 
 import styles from "../style/home.module.scss"
 import TextField from "../components/TextField"
+import DialogBox from "../components/DialogBox/DialogBox"
+
+import useConfirm from "../hooks/useConfirm"
+import useTotal from "../hooks/useTotal"
 
 interface propsHandle {
     index: any
@@ -11,29 +15,38 @@ interface propsHandle {
 
 function Home() {
 
-    const dummyData = []
+    const { confirm } = useConfirm()
+    const { total } = useTotal()
+
+    const listTodo = []
 
     const [todos, setTodos] = useState([])
+    const [clear, setClear] = useState(false)
 
     useEffect(() => {
         formarObj()
-        setTodos(dummyData)
-    }, [])
+        setTodos(listTodo)
+        setClear(clear)
+    }, [clear])
 
     function formarObj() {
         let local_todo = JSON.parse(localStorage.getItem(`local_todo`))
-        console.log(local_todo)
-
         if (local_todo) {
             local_todo.map((todo_item) => {
-                dummyData.push(todo_item)
+                listTodo.push(todo_item)
             })
         }
     }
 
     function clearTodoList() {
-        localStorage.removeItem("local_todo")
+
+        const clearNow = document.getElementById('clear')
+
+        clear == true ? setClear(false) : setClear(true)
+        clearNow.addEventListener("click", () => setClear(false))
+
         setTodos([])
+        localStorage.removeItem("local_todo")
     }
 
     const handleRemoveItem = (index) => {
@@ -79,15 +92,16 @@ function Home() {
     }
 
     return (
-
-        // todos.length > 0 && (
         <div className={styles.home}>
+            <DialogBox op={clear} />
             <div className={styles.todoWrapper}>
-                <h1>To do List</h1>
+                <h1>To do List ({total}) | {confirm}</h1>
                 <TextField
                     addNewItem={addNewItem}
                 />
-                <button style={{ height: 30, width: 100, border: "none", borderRadius: 5, marginLeft: "auto", marginBottom: 10, cursor: "pointer" }} onClick={clearTodoList}>Clear</button>
+                <button id="clear" className={styles.clearBtn} onClick={clearTodoList}>
+                    Clear
+                </button>
                 <div className={styles.list}>
                     <div className={styles.labels}>
                         <p>Task</p>
@@ -101,7 +115,6 @@ function Home() {
                 </div>
             </div>
         </div>
-        // )
     )
 
 }
