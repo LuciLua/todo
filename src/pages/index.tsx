@@ -92,20 +92,37 @@ function Home() {
         // Update status on localStorage 
         const todosListString = JSON.stringify([...todos])
         // Bug here
-        localStorage.setItem("local_todo", todosListString)[index]
+        const local_todo_obj = () => localStorage.setItem("local_todo", todosListString)[index]
+
+        local_todo_obj
+        
 
     }
 
     const addNewItem = (obj) => {
         let newItems = [...todos]
-        const final = JSON.stringify([...newItems, obj])
-        localStorage.setItem(`local_todo`, final)
 
-        let local_todo = JSON.parse(localStorage.getItem("local_todo"))
-        setTodos(local_todo)
+        const espc = obj.todo === ""
+            || obj.todo === " "
+            || obj.todo === "  "
+            || obj.todo === "   "
 
-        // Atualizar total sempre que adicionar novo item
-        setUpdateTotal(updateTotal + 1)
+        // Excessoes de item (vazios ou apenas com espacos iniciais)
+        if (espc) {
+            return
+        } else {
+
+            console.log(obj.todo)
+
+            const final = JSON.stringify([...newItems, obj])
+            localStorage.setItem(`local_todo`, final)
+
+            let local_todo = JSON.parse(localStorage.getItem("local_todo"))
+            setTodos(local_todo)
+
+            // Atualizar total sempre que adicionar novo item
+            setUpdateTotal(updateTotal + 1)
+        }
     }
 
     const choice = () => {
