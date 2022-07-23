@@ -1,19 +1,19 @@
-import { createContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import useConfirm from "../../hooks/useConfirm"
 import useTotal from "../../hooks/useTotal"
 import styles from "./DialogBox.module.scss"
 
 function DialogBox({ op }) {
 
+    const { setConfirm } = useConfirm()
     const [option, setOption] = useState(op)
     const { total } = useTotal()
 
-    const { setConfirm } = useConfirm()
-
     useEffect(() => {
-        setOption(op)
         setConfirm(false)
+        setOption(op)
     }, [op])
+
 
     function clearOptions(confirmClear: boolean, optionForCloseBox: boolean) {
         setConfirm(confirmClear)

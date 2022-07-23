@@ -9,38 +9,39 @@ import DialogBox from "../components/DialogBox/DialogBox"
 import useConfirm from "../hooks/useConfirm"
 import useTotal from "../hooks/useTotal"
 
-interface propsHandle {
-    index: any
-}
+import { BiNotepad } from "react-icons/bi"
 
 function Home() {
 
     const { confirm, setConfirm } = useConfirm()
-    const { total } = useTotal()
+    // const { total } = useTotal()
 
     const listTodo = []
 
     const [todos, setTodos] = useState<any>([])
     const [clear, setClear] = useState(false)
 
-    const [updateTotal, setUpdateTotal] = useState(total)
+    // const [updateTotal, setUpdateTotal] = useState(total)
 
     useEffect(() => {
         formarObj()
         setTodos(listTodo)
 
         setClear(clear)
-        setUpdateTotal(total)
-    }, [clear, total])
+        // setUpdateTotal(total)
+        // }, [clear, total])
+    }, [clear])
 
 
     function formarObj() {
-        let local_todo = JSON.parse(localStorage.getItem(`local_todo`))
-        if (local_todo) {
-            local_todo.map((todo_item) => {
-                listTodo.push(todo_item)
-            })
-        }
+        // let local_todo = JSON.parse(localStorage.getItem("local_todo"))
+        // if (local_todo){
+        //     local_todo.map((todo_item) => {
+        //         listTodo.push(todo_item)
+        //     })
+        // } else {
+            listTodo.push({todo: "teste", status: "completed"})
+        // }
     }
 
     async function clearTodoList() {
@@ -50,12 +51,13 @@ function Home() {
         clear == true ? setClear(false) : setClear(true)
         clearNow.addEventListener("click", () => setClear(false))
 
+        confirm == true ? setConfirm(false) : setConfirm(true)
         console.log(confirm)
 
         if (confirm == true) {
             setTodos([])
             localStorage.removeItem("local_todo")
-            setUpdateTotal(0)
+            // setUpdateTotal(0)
         } else {
             return
         }
@@ -76,7 +78,7 @@ function Home() {
         // adicionando a nova lista para o local Storage
         localStorage.setItem("local_todo", JSON.stringify(filtrado))
 
-        setUpdateTotal(updateTotal - 1)
+        // setUpdateTotal(updateTotal - 1)
     }
 
     const handleUpdateItem = (index: any) => {
@@ -91,8 +93,14 @@ function Home() {
 
         // Update status on localStorage 
         const todosListString = JSON.stringify([...todos])
+
         const set_item_to_local = () => localStorage.setItem("local_todo", todosListString)[index]
+
+        // localStorage.setItem("local_todo", "aaa")
+
         set_item_to_local
+
+        console.log(localStorage.getItem("local_todo"))
 
     }
 
@@ -118,19 +126,19 @@ function Home() {
             setTodos(local_todo)
 
             // Atualizar total sempre que adicionar novo item
-            setUpdateTotal(updateTotal + 1)
+            // setUpdateTotal(updateTotal + 1)
         }
-    }
-
-    const choice = () => {
-        return confirm
     }
 
     return (
         <div className={styles.home}>
             <DialogBox op={clear} />
             <div className={styles.todoWrapper}>
-                <h1>To do List ({updateTotal})</h1>
+                <h1>
+                    <span><BiNotepad /></span>
+                    {/* To do List ({updateTotal}) */}
+                    To do List
+                </h1>
                 <TextField
                     addNewItem={addNewItem}
                 />
@@ -138,10 +146,6 @@ function Home() {
                     Clear
                 </button>
                 <div className={styles.list}>
-                    {/* <div className={styles.labels}>
-                        <p>Task</p>
-                        <p>Actions</p>
-                    </div> */}
                     <List
                         data={todos}
                         handleRemoveItem={handleRemoveItem}

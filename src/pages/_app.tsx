@@ -5,11 +5,11 @@ import '../style/globals.scss'
 function App({ Component, pageProps }) {
     return (
         <>
-            <TotalProvider>
-                <DialogProvider>
+            {/* <TotalProvider> */}
+                {/* <DialogProvider> */}
                     <Component {...pageProps} />
-                </DialogProvider>
-            </TotalProvider>
+                {/* </DialogProvider> */}
+            {/* </TotalProvider> */}
         </>
     )
 }

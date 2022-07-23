@@ -27,6 +27,17 @@
 
     h1 {
       margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin-right: 10px;
+      }
     }
     p {
       color: rgb(160, 160, 160);
@@ -44,12 +55,11 @@
 
       background-color: #e76f6f;
       color: rgb(255, 255, 255);
-      
-      &:hover{
+
+      &:hover {
         background-color: #d06262;
         color: rgb(255, 255, 255);
       }
-
     }
 
     .list {
@@ -68,7 +78,6 @@
       border-radius: 5px;
 
       position: relative;
-
     }
   }
 }
@@ -83,5 +92,14 @@
   }
   100% {
     opacity: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .home {
+    padding: 5px;
+    .todoWrapper {
+      padding: 20px;
+    }
   }
 }
