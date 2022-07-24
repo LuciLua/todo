@@ -28,9 +28,8 @@ function Home() {
         setTodos(listTodo)
 
         setClear(clear)
-        // setUpdateTotal(total)
-        // }, [clear, total])
-    }, [clear])
+        setUpdateTotal(total)
+        }, [clear, total])
 
 
     function formarObj() {

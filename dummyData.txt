@@ -1,7 +1,0 @@
-    const dummyData = [
-        { todo: "Hard working in some project", status: "pending" },
-        { todo: "Make something for me eat", status: "pending" },
-        { todo: "Drink two glasses of water", status: "pending" },
-        { todo: "Practice exercices", status: "pending" },
-        { todo: "Watch series", status: "pending" }
-    ]
