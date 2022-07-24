@@ -14,14 +14,14 @@ import { BiNotepad } from "react-icons/bi"
 function Home() {
 
     const { confirm, setConfirm } = useConfirm()
-    // const { total } = useTotal()
+    const { total } = useTotal()
 
     const listTodo = []
 
     const [todos, setTodos] = useState<any>([])
     const [clear, setClear] = useState(false)
 
-    // const [updateTotal, setUpdateTotal] = useState(total)
+    const [updateTotal, setUpdateTotal] = useState(total)
 
     useEffect(() => {
         formarObj()
@@ -34,14 +34,13 @@ function Home() {
 
 
     function formarObj() {
-        // let local_todo = JSON.parse(localStorage.getItem("local_todo"))
-        // if (local_todo){
-        //     local_todo.map((todo_item) => {
-        //         listTodo.push(todo_item)
-        //     })
-        // } else {
-            listTodo.push({todo: "teste", status: "completed"})
-        // }
+        let local_todo = JSON.parse(localStorage.getItem("local_todo"))
+        if (local_todo) {
+            local_todo.map((todo_item) => {
+                listTodo.push(todo_item)
+            })
+        } else {
+        }
     }
 
     async function clearTodoList() {
@@ -57,7 +56,7 @@ function Home() {
         if (confirm == true) {
             setTodos([])
             localStorage.removeItem("local_todo")
-            // setUpdateTotal(0)
+            setUpdateTotal(0)
         } else {
             return
         }
@@ -78,10 +77,10 @@ function Home() {
         // adicionando a nova lista para o local Storage
         localStorage.setItem("local_todo", JSON.stringify(filtrado))
 
-        // setUpdateTotal(updateTotal - 1)
+        setUpdateTotal(updateTotal - 1)
     }
 
-    const handleUpdateItem = (index: any) => {
+    const handleUpdateItem = async (index: any) => {
         let listItems = [...todos]
         setTodos(() => listItems)
 
@@ -93,15 +92,7 @@ function Home() {
 
         // Update status on localStorage 
         const todosListString = JSON.stringify([...todos])
-
-        const set_item_to_local = () => localStorage.setItem("local_todo", todosListString)[index]
-
-        // localStorage.setItem("local_todo", "aaa")
-
-        set_item_to_local
-
-        console.log(localStorage.getItem("local_todo"))
-
+        localStorage.setItem("local_todo", todosListString)
     }
 
     const addNewItem = (obj) => {
@@ -126,7 +117,7 @@ function Home() {
             setTodos(local_todo)
 
             // Atualizar total sempre que adicionar novo item
-            // setUpdateTotal(updateTotal + 1)
+            setUpdateTotal(updateTotal + 1)
         }
     }
 
@@ -136,8 +127,7 @@ function Home() {
             <div className={styles.todoWrapper}>
                 <h1>
                     <span><BiNotepad /></span>
-                    {/* To do List ({updateTotal}) */}
-                    To do List
+                    To do List ({updateTotal})
                 </h1>
                 <TextField
                     addNewItem={addNewItem}
