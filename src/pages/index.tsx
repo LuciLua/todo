@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { useEffect } from "react"
 
 import styles from "../style/home.module.scss"
-import TextField from "../components/TextField"
+import TextField from "../components/TextField/TextField"
 import DialogBox from "../components/DialogBox/DialogBox"
 
 import useConfirm from "../hooks/useConfirm"

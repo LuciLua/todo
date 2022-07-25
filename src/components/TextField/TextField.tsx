@@ -1,5 +1,5 @@
 import { useState } from "react"
-import styles from "./index.module.scss"
+import styles from "./TextField.module.scss"
 import { AiOutlineSend } from "react-icons/ai"
 
 function TextField({ addNewItem }) {
