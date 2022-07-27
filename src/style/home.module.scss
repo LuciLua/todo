@@ -24,19 +24,24 @@
     box-shadow: -2px 4px 12px rgba(0, 0, 0, 0.083);
 
     padding: 30px;
-
+    
     h1 {
       margin-bottom: 30px;
       display: flex;
       justify-content: center;
       align-items: center;
-
+      
       span {
         display: flex;
         justify-content: center;
         align-items: center;
-
         margin-right: 10px;
+
+        &:nth-child(2){
+          margin-left: 10px;
+          color: #5b5b5b3d;
+        }
+
       }
     }
     p {

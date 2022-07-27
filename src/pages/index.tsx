@@ -29,7 +29,7 @@ function Home() {
 
         setClear(clear)
         setUpdateTotal(total)
-        }, [clear, total])
+    }, [clear, total])
 
 
     function formarObj() {
@@ -126,7 +126,7 @@ function Home() {
             <div className={styles.todoWrapper}>
                 <h1>
                     <span><BiNotepad /></span>
-                    To do List ({updateTotal})
+                    To do List <span className="updateTotal">({updateTotal})</span>
                 </h1>
                 <TextField
                     addNewItem={addNewItem}
