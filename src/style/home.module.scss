@@ -24,24 +24,23 @@
     box-shadow: -2px 4px 12px rgba(0, 0, 0, 0.083);
 
     padding: 30px;
-    
+
     h1 {
       margin-bottom: 30px;
       display: flex;
       justify-content: center;
       align-items: center;
-      
+
       span {
         display: flex;
         justify-content: center;
         align-items: center;
         margin-right: 10px;
 
-        &:nth-child(2){
+        &:nth-child(2) {
           margin-left: 10px;
           color: #5b5b5b3d;
         }
-
       }
     }
     p {
@@ -61,9 +60,16 @@
       background-color: #e76f6f;
       color: rgb(255, 255, 255);
 
+      outline: none;
+
       &:hover {
         background-color: #d06262;
         color: rgb(255, 255, 255);
+      }
+
+      &:focus {
+        border: 1px solid rgba(172, 24, 24, 0.575);
+        box-shadow: 0 0 1px 1px rgba(245, 125, 125, 0.835);
       }
     }
 

@@ -20,6 +20,11 @@
     margin-bottom: 15px;
 
     padding-right: 35px;
+
+    &:focus {
+      border: 1px solid rgba(107, 125, 182, 0.287);
+      box-shadow: 0 0 1px 1px rgba(92, 92, 92, 0.408);
+    }
   }
 
   button {
@@ -36,5 +41,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    outline: none;
+
+    border-radius: 5px;
+    
+    &:focus {
+      border: 1px solid rgba(107, 125, 182, 0.287);
+      box-shadow: 0 0 1px 1px rgba(92, 92, 92, 0.408);
+    }
   }
 }
