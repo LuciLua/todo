@@ -13,12 +13,15 @@ import { BiNotepad } from "react-icons/bi"
 
 function Home() {
 
-    const { confirm, setConfirm } = useConfirm()
+    const { confirm } = useConfirm()
+
     const { total } = useTotal()
 
     const listTodo = []
 
     const [todos, setTodos] = useState<any>([])
+
+    // modal
     const [clear, setClear] = useState(false)
 
     const [updateTotal, setUpdateTotal] = useState(total)
@@ -26,10 +29,8 @@ function Home() {
     useEffect(() => {
         formarObj()
         setTodos(listTodo)
-
-        setClear(clear)
         setUpdateTotal(total)
-    }, [clear, total])
+    }, [total])
 
 
     function formarObj() {
@@ -42,20 +43,15 @@ function Home() {
         }
     }
 
-    async function clearTodoList() {
+    function clearTodoList() {
 
-        const clearNow = document.getElementById('clear')
-
+        // modal aparece
         clear == true ? setClear(false) : setClear(true)
-        clearNow.addEventListener("click", () => setClear(false))
-
-        confirm == true ? setConfirm(false) : setConfirm(true)
-        console.log(confirm)
 
         if (confirm == true) {
             setTodos([])
-            localStorage.removeItem("local_todo")
             setUpdateTotal(0)
+
         } else {
             return
         }
@@ -122,7 +118,7 @@ function Home() {
 
     return (
         <div className={styles.home}>
-            <DialogBox op={clear} />
+            {clear ? <DialogBox setClear={setClear} /> : null}
             <div className={styles.todoWrapper}>
                 <h1>
                     <span><BiNotepad /></span>

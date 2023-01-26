@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useState } from "react"
 
 export const DialogBoxContext = createContext("cancel")
 

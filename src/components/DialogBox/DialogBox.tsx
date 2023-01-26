@@ -3,21 +3,44 @@ import useConfirm from "../../hooks/useConfirm"
 import useTotal from "../../hooks/useTotal"
 import styles from "./DialogBox.module.scss"
 
-function DialogBox({ op }) {
+function DialogBox({ setClear }) {
 
-    const { setConfirm } = useConfirm()
-    const [option, setOption] = useState(op)
+    const { confirm, setConfirm } = useConfirm()
+
+    // modal 
+    const [option, setOption] = useState(true)
+
     const { total } = useTotal()
-
-    useEffect(() => {
-        setConfirm(false)
-        setOption(op)
-    }, [op])
 
 
     function clearOptions(confirmClear: boolean, optionForCloseBox: boolean) {
-        setConfirm(confirmClear)
-        setOption(optionForCloseBox)
+
+        // setOption(false)
+
+        if (confirmClear) {
+
+            localStorage.removeItem('local_todo')
+            document.location.reload()
+
+            setClear(false)
+
+            // close modal
+            setOption(false)
+
+            console.log('ok')
+
+
+        } else {
+            // close modal
+            setOption(false)
+
+            setClear(false)
+
+
+
+
+            console.log('decline')
+        }
     }
 
     if (option == false) return
@@ -28,7 +51,9 @@ function DialogBox({ op }) {
                     <h1>Apagar tudo? ({total})</h1>
                     <p>Voce tem certeza que deseja apagar todos os items da lista?</p>
                     <div className={styles.btnCollection}>
-                        <button onClick={() => clearOptions(true, false)} title="apagar">
+                        <button
+                            onClick={() => { clearOptions(true, false) }}
+                            title="apagar">
                             Apagar
                         </button>
                         <button onClick={() => clearOptions(false, false)} title="cancelar">
